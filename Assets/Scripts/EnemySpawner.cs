@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField, Min(1f)] private float _spawnRate = 2f;
     [SerializeField, Min(1f)] private float _randomEnemyDirection = 100f;
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private EnemyMover enemyPrefab;
     [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
 
 
@@ -23,23 +23,20 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return wait;
 
-            SpawnEnemy();
+            CreateEnemy();
         }
     }
 
-    private void SpawnEnemy()
+    private void CreateEnemy()
     {
-        int spawnIndex = Random.Range(0, _spawnPoints.Count - 1);
-        GameObject enemy = Instantiate(enemyPrefab, _spawnPoints[spawnIndex].position, Quaternion.identity);
+        int spawnIndex = Random.Range(0, _spawnPoints.Count);
+        EnemyMover enemyMover = Instantiate(enemyPrefab, _spawnPoints[spawnIndex].position, Quaternion.identity);
 
-        if (enemy.TryGetComponent<EnemyMover>(out EnemyMover enemyMover))
-        {
-            Vector3 randomDirection = new Vector3(
-                Random.Range(-_randomEnemyDirection, _randomEnemyDirection),
-                0,
-                Random.Range(-_randomEnemyDirection, _randomEnemyDirection)
-            );
-            enemyMover.SetDirection(randomDirection);
-        }
+        Vector3 randomDirection = new Vector3(
+                        Random.Range(-_randomEnemyDirection, _randomEnemyDirection),
+                        0,
+                        Random.Range(-_randomEnemyDirection, _randomEnemyDirection)
+                    );
+        enemyMover.SetDirection(randomDirection);
     }
 }
