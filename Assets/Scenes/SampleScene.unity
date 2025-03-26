@@ -602,7 +602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnRate: 2
   _randomEnemyDirection: 100
-  enemyPrefab: {fileID: 7570055532240704896, guid: e75a1eca8c2b9eb4eb78a6d315d89588, type: 3}
+  enemyPrefab: {fileID: 4131408537823270244, guid: e75a1eca8c2b9eb4eb78a6d315d89588, type: 3}
   _spawnPoints:
   - {fileID: 1986459514}
   - {fileID: 1591365940}
