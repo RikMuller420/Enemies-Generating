@@ -5,8 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField, Min(1f)] private float _spawnRate = 2f;
-    [SerializeField] private EnemyMover enemyPrefab;
-    [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
+    [SerializeField] private List<EnemySpawnPoint> _spawnPoints = new List<EnemySpawnPoint>();
 
     private void Start()
     {
@@ -28,13 +27,6 @@ public class EnemySpawner : MonoBehaviour
     private void CreateEnemy()
     {
         int spawnIndex = Random.Range(0, _spawnPoints.Count);
-        EnemyMover enemyMover = Instantiate(enemyPrefab, _spawnPoints[spawnIndex].position, Quaternion.identity);
-
-        Vector3 randomDirection = new Vector3(
-                        Random.Range(-1f, 1f),
-                        0,
-                        Random.Range(-1f, 1f)
-                    );
-        enemyMover.SetDirection(randomDirection);
+        _spawnPoints[spawnIndex].CreateEnemy();
     }
 }

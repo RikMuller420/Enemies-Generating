@@ -4,16 +4,22 @@ public class EnemyMover : MonoBehaviour
 {
     [SerializeField, Min(1)] private float _speed = 5f;
 
-    private Vector3 _direction;
+    private TargetMover _target;
 
     private void Update()
     {
-        Vector3 translation = _direction * _speed * Time.deltaTime;
-        transform.Translate(translation);
+        float stepDistance = _speed * Time.deltaTime;
+
+        transform.position = Vector3.MoveTowards
+            (
+                transform.position,
+                _target.transform.position,
+                stepDistance
+            );
     }
 
-    public void SetDirection(Vector3 direction)
+    public void SetTarget(TargetMover target)
     {
-        _direction = direction;
+        _target = target;
     }
 }
